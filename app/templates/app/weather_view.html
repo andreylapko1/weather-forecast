@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Погода</title>
+  <link rel="stylesheet" href="{% static 'css/weather.css' %}" />
+</head>
+<body>
+
+  <button onclick="window.location.href='/home'" class="btn-home">Домой</button>
+
+  <div class="weather-card">
+    <div class="weather-icon">
+      {% if weather.is_day %}
+        {% if weather.weathercode == 3 %}
+          🌤️
+        {% else %}
+          🌞
+        {% endif %}
+      {% else %}
+        🌙
+      {% endif %}
+    </div>
+
+    <div class="temperature">{{ weather.temperature }}°C</div>
+    <div class="details">
+      <div><strong>Время:</strong> {{ weather.time }}</div>
+      <div><strong>Скорость ветра:</strong> {{ weather.windspeed }} км/ч</div>
+      <div><strong>Направление ветра:</strong> {{ weather.winddirection }}°</div>
+      <div><strong>Погодные условия:</strong>
+        {% if weather.weathercode == 3 %}
+          Переменная облачность
+        {% else %}
+          Неизвестно
+        {% endif %}
+      </div>
+      <div><strong>Сейчас:</strong> {% if weather.is_day %} День {% else %} Ночь {% endif %}</div>
+    </div>
+  </div>
+
+</body>
+</html>
