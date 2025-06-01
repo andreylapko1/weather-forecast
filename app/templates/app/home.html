@@ -8,21 +8,21 @@
 </head>
 <body>
     <main class="container">
-        <h1 class="title">Check the Weather</h1>
+        <h1 class="title">Просмотр погоды</h1>
         <form method="POST" action="/home/" class="weather-form" novalidate>
             {% csrf_token %}
-            <label for="city" class="form-label">Enter your city:</label>
+            <label for="city" class="form-label">Введите ваш город: </label>
             <input
                 id="city"
                 type="text"
                 name="city"
-                placeholder="e.g. London"
+                placeholder="Москва"
                 required
                 class="form-input"
                 autocomplete="off"
                 list="history-list"
             />
-            <button type="submit" class="btn-submit">Get Weather</button>
+            <button type="submit" class="btn-submit">Получить прогноз:</button>
         </form>
 
         {% if history %}

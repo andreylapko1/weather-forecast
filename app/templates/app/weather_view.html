@@ -10,33 +10,39 @@
 
   <button onclick="window.location.href='/home'" class="btn-home">Домой</button>
 
-  <div class="weather-card">
-    <div class="weather-icon">
-      {% if weather.is_day %}
-        {% if weather.weathercode == 3 %}
-          🌤️
-        {% else %}
-          🌞
-        {% endif %}
-      {% else %}
-        🌙
-      {% endif %}
-    </div>
-
-    <div class="temperature">{{ weather.temperature }}°C</div>
-    <div class="details">
-      <div><strong>Время:</strong> {{ weather.time }}</div>
-      <div><strong>Скорость ветра:</strong> {{ weather.windspeed }} км/ч</div>
-      <div><strong>Направление ветра:</strong> {{ weather.winddirection }}°</div>
-      <div><strong>Погодные условия:</strong>
-        {% if weather.weathercode == 3 %}
-          Переменная облачность
-        {% else %}
-          Неизвестно
-        {% endif %}
+  <div class="grid-container">
+    {% for day in weather %}
+      <div class="weather-card">
+        <div class="weather-icon">
+          {% if day.weathercode == 0 %}
+            ☀️
+          {% elif day.weathercode == 1 %}
+            🌤️
+          {% elif day.weathercode == 2 %}
+            ⛅
+          {% elif day.weathercode == 3 %}
+            ☁️
+          {% elif day.weathercode == 45 or day.weathercode == 48 %}
+            🌫️
+          {% elif day.weathercode == 51 or day.weathercode == 53 or day.weathercode == 55 %}
+            🌦️
+          {% elif day.weathercode == 61 or day.weathercode == 63 or day.weathercode == 65 %}
+            🌧️
+          {% elif day.weathercode == 71 or day.weathercode == 73 or day.weathercode == 75 %}
+            🌨️
+          {% else %}
+            🌡️
+          {% endif %}
+        </div>
+        <div class="temperature">
+          🔺 {{ day.max_temp }}° / 🔻 {{ day.min_temp }}°
+        </div>
+        <div class="details">
+          <div><strong>Дата:</strong> {{ day.date }}</div>
+          <div><strong>Код погоды:</strong> {{ day.weathercode }}</div>
+        </div>
       </div>
-      <div><strong>Сейчас:</strong> {% if weather.is_day %} День {% else %} Ночь {% endif %}</div>
-    </div>
+    {% endfor %}
   </div>
 
 </body>
