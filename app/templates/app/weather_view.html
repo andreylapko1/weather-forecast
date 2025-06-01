@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Погода</title>
+  <link rel="stylesheet" href="{% static 'css/weather.css' %}" />
+</head>
+<body>
+
+  <button onclick="window.location.href='/home'" class="btn-home">Домой</button>
+
+  <div class="grid-container">
+    {% for day in weather %}
+      <div class="weather-card">
+        <div class="weather-icon">
+          {% if day.weathercode == 0 %}
+            ☀️
+          {% elif day.weathercode == 1 %}
+            🌤️
+          {% elif day.weathercode == 2 %}
+            ⛅
+          {% elif day.weathercode == 3 %}
+            ☁️
+          {% elif day.weathercode == 45 or day.weathercode == 48 %}
+            🌫️
+          {% elif day.weathercode == 51 or day.weathercode == 53 or day.weathercode == 55 %}
+            🌦️
+          {% elif day.weathercode == 61 or day.weathercode == 63 or day.weathercode == 65 %}
+            🌧️
+          {% elif day.weathercode == 71 or day.weathercode == 73 or day.weathercode == 75 %}
+            🌨️
+          {% else %}
+            🌡️
+          {% endif %}
+        </div>
+        <div class="temperature">
+          🔺 {{ day.max_temp }}° / 🔻 {{ day.min_temp }}°
+        </div>
+        <div class="details">
+          <div><strong>Дата:</strong> {{ day.date }}</div>
+          <div><strong>Код погоды:</strong> {{ day.weathercode }}</div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+</body>
+</html>
